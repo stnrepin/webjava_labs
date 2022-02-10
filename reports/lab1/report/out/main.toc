@@ -1,0 +1,12 @@
+\selectlanguage *{russian}
+\contentsline {section}{\numberline {1}Цель работы}{3}{section.1}%
+\contentsline {section}{\numberline {2}Выполнение работы}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Загрузка и установка на компьютер Web-сервера Apache Tomcat}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Внесение изменений в файл server.xml}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Проверка работоспособности Web-сервера по портам 8080 и 80}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Настройка IntelliJ IDEA на работу с Web-сервером Apache Tomcat}{6}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Запуск и остановка Web-сервера Apache Tomcat из среды IntelliJ IDEA}{7}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Загрузка и установка в фреймворка Maven}{8}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Проверка правильности установки Maven с помощью команды mvn–v}{8}{subsection.2.7}%
+\contentsline {section}{\numberline {3}Вывод}{8}{section.3}%
+\contentsfinish 

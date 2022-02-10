@@ -1,0 +1,70 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{rotating}
+\usepackage{verbatim}
+\input{inc/preamble.tex}
+
+\newcommand{\Olsi}[1]{\,\overline{\!{#1}}}
+\newcommand{\Ols}[1]{\mskip.5\thinmuskip\overline{\mskip-.5\thinmuskip {#1} \mskip-.5\thinmuskip}\mskip.5\thinmuskip}
+
+\let\vec\mathbf
+
+\begin{document}
+
+\input{inc/titlepage}
+
+\renewcommand*{\thepage}{}
+\tableofcontents
+\clearpage
+\renewcommand*{\thepage}{\arabic{page}}
+
+\setcounter{page}{3}
+
+\section{Цель работы}
+
+Изучение процесса настройки Web-сервера Apache Tomcat и системы сборки Maven в
+среде IntelliJ IDEA.
+
+\section{Выполнение работы}
+
+\subsection{Загрузка и установка на компьютер Web-сервера Apache Tomcat}
+
+\addimghere{res/1.png}{1}{Установка сервера и проверка его состояния в
+дистрибутиве Arch Linux ОС GNU/Linux}{}
+
+\subsection{Внесение изменений в файл server.xml}
+
+\addimghere{res/3.png}{1}{Измененный файл конфигурации сервера}{}
+
+\subsection{Проверка работоспособности Web-сервера по портам 8080 и 80}
+
+\addimghere{res/2.png}{1}{Проверка работоспособности сервера по порту 8080}{}
+\addimghere{res/4.png}{1}{Проверка работоспособности сервера по порту 80}{}
+
+\subsection{Настройка IntelliJ IDEA на работу с Web-сервером Apache Tomcat}
+
+\addimghere{res/5.png}{1}{Окно подключения Apache Tomcat в IntelliJ IDEA}{}
+
+\subsection{Запуск и остановка Web-сервера Apache Tomcat из среды IntelliJ IDEA}
+
+\addimghere{res/6.png}{1}{Запуск сервера}{}
+\addimghere{res/7.png}{1}{Остановка сервера}{}
+
+\subsection{Загрузка и установка в фреймворка Maven}
+
+\addimghere{res/8.png}{1}{Окно подключения Apache Tomcat в IntelliJ IDEA}{}
+
+\subsection{Проверка правильности установки Maven с помощью команды mvn–v}
+
+\addimghere{res/9.png}{1}{Получение версии установленного Maven}{}
+
+\clearpage
+
+\section{Вывод}
+
+В ходе выполнения лабораторной работы были получены практические навыки
+выполнения первоначальной конфигурации среды разработки, в частности навыки
+установки и запуска Web-сервера Apache Tomacat, подключения его к IntelliJ
+IDEA, установки Maven.
+
+\end{document}
+
