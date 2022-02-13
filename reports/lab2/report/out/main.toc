@@ -1,0 +1,12 @@
+\selectlanguage *{russian}
+\contentsline {section}{\numberline {1}Цель работы}{3}{section.1}%
+\contentsline {section}{\numberline {2}Выполнение работы}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Создание Maven-проекта с архетипом maven-archetype-webapp}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Выполнение сборки Web-приложения, используя команду maven install}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Копирование WAR-файла проекта в каталог Web-сервера Apache Tomcat}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Просмотр WAR-файл в архиваторе}{8}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Запуск Web-приложения в браузере}{9}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Вывод}{10}{section.3}%
+\contentsline {paragraph}{\xpg@select@fontfamily {russian}\fontseries {m}\selectfont \fontshape {n}\selectfont \bfseries \centerline {{Приложение А. Файл pom.xml}}}{10}{paragraph*.10}%
+\contentsline {section}{Приложение А. Файл pom.xml}{10}{paragraph*.10}%
+\contentsfinish 

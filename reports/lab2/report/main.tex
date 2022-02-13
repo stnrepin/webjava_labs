@@ -1,0 +1,171 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{rotating}
+\usepackage{verbatim}
+\input{inc/preamble.tex}
+
+\newcommand{\Olsi}[1]{\,\overline{\!{#1}}}
+\newcommand{\Ols}[1]{\mskip.5\thinmuskip\overline{\mskip-.5\thinmuskip {#1} \mskip-.5\thinmuskip}\mskip.5\thinmuskip}
+
+\let\vec\mathbf
+
+\usepackage[outputdir=out,cache=false]{minted}
+
+\begin{document}
+
+\input{inc/titlepage}
+
+\renewcommand*{\thepage}{}
+\tableofcontents
+\clearpage
+\renewcommand*{\thepage}{\arabic{page}}
+
+\setcounter{page}{3}
+
+\section{Цель работы}
+
+Знакомство с основными понятиями сборки и средствами создания web-проекта с
+помощью Maven
+
+\section{Выполнение работы}
+
+\subsection{Создание Maven-проекта с архетипом maven-archetype-webapp}
+
+\addimghere{res/3.png}{1}{Информация о создаваемом проекте}{}
+
+\subsection{Выполнение сборки Web-приложения, используя команду maven install}
+
+\addimghere{res/4.png}{1}{Конфигурация сборки IntelliJ IDEA для maven install}{}
+\addimghere{res/7.png}{1}{Фрагмент вывода maven при выполнении команды}{}
+\addimghere{res/5.png}{1}{Появившаяся папка target}{}
+
+\subsection{Копирование WAR-файла проекта в каталог Web-сервера Apache Tomcat}
+
+Выполняется автоматически IntelliJ IDEA c помощью специальной конфигурации
+сборки.
+
+\addimghere{res/9.png}{1}{}{}
+\addimghere{res/10.png}{1}{}{}
+
+\subsection{Просмотр WAR-файл в архиваторе}
+
+\addimghere{res/6.png}{1}{Структура WAR-файла}{}
+
+\subsection{Запуск Web-приложения в браузере}
+
+\addimghere{res/8.png}{1}{Форма, отображаемая в браузере}{}
+
+
+\clearpage
+
+\section{Вывод}
+
+В ходе выполнения лабораторной работы были получены практические навыки
+создания пустого веб-приложения на основе шаблона из Maven и его сборки в
+WAR-файл. Получены знания о структуре такого проекта, применяемых плагинах
+Maven, структуре WAR-файла.
+
+\anonsection{Приложение А. Файл pom.xml}
+
+\begin{minted}[fontsize=\footnotesize]{xml}
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+            http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>webapp</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>webapp Maven Webapp</name>
+  <url>https://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <!--
+      Зависимость "Фреймворк JUnit", необходимый для создания различных
+      тестов приложения. Полное название: "junit:junit", версия 4.11,
+      область действия "test".
+      -->
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>webapp</finalName>
+    <pluginManagement>
+      <plugins>
+        <!--
+        Плагин для очистики артифактов сборки (файлов, создаваемых при
+        сборке проекта).
+        -->
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!--
+        Плагин для копирования ресурсов в папку `target/`.
+        -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <!--
+        Плагин для компиляции исходников проекта.
+        -->
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <!--
+        Плагин для запуска тестов и генерации отчетов по тестированию.
+        -->
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <!--
+        Плагин для сборки всего необходимого для работы приложения в
+        WAR-архив (архив веб-приложения).
+        -->
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.2</version>
+        </plugin>
+        <!--
+        Плагин для добавления артифактов в локальный репозиторий.
+        -->
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <!--
+        Плагин для копирования артифактов в удаленный репозиторий.
+        -->
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
+
+
+\end{minted}
+
+\end{document}
+
