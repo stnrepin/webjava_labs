@@ -10,14 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f05566b-8450-4fce-a175-83a6aa1d96e3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/webapp_ear_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/META-INF/application.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/servlet/MedicineList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/MedicineList.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/MedicineList_ru.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../reports/lab2/report/out/main.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/servlet/MedicineList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/servlet/MedicineList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,8 +64,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
-  <component name="RunManager" selected="Maven.webapp [javadoc:javadoc]">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.0.16">
     <configuration name="webapp [install]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -222,7 +224,8 @@
       <updated>1644752200195</updated>
       <workItem from="1644752201804" duration="6725000" />
       <workItem from="1644860020426" duration="2769000" />
-      <workItem from="1645353349026" duration="8504000" />
+      <workItem from="1645353349026" duration="10717000" />
+      <workItem from="1645379806058" duration="165000" />
     </task>
     <servers />
   </component>

@@ -1,3 +1,44 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{rotating}
+\usepackage{verbatim}
+\input{inc/preamble.tex}
+
+\usepackage[outputdir=out,cache=false]{minted}
+
+\begin{document}
+
+\input{inc/titlepage}
+
+\renewcommand*{\thepage}{}
+\tableofcontents
+\clearpage
+\renewcommand*{\thepage}{\arabic{page}}
+
+\setcounter{page}{3}
+
+\section{Цель работы}
+
+Знакомство со способами отображения данных на различных языках при
+использовании файлов ресурсов.
+
+\section{Выполнение работы}
+
+В приложение, разработанное в предыдущей работе, были добавлены ресурсы,
+необхимые для интернационализации приложения на русский и английский языки.
+
+\addimghere{res/1.png}{1}{Указание неверного языка}{}
+\addimghere{res/2.png}{1}{Приложение на английском языке}{}
+\addimghere{res/3.png}{1}{Приложение на русском языке}{}
+
+\section{Вывод}
+
+В ходе выполнения лабораторной работы были получены практические навыки
+работы с ресурсами приложений и выполнения на их основе интернационализации
+веб-приложений.
+
+\anonsection{Исходный код сервлета}
+
+\begin{minted}[fontsize=\footnotesize]{java}
 package app.servlet;
 
 import jakarta.servlet.*;
@@ -186,3 +227,31 @@ public class MedicineList extends HttpServlet {
         processRequest(request, response);
     }
 }
+\end{minted}
+
+\anonsection{Исходный код ресурсов (ангилийский язык)}
+
+\begin{minted}[fontsize=\footnotesize]{java}
+head.title = Medicine List
+body.title = List of medicines cheaper than
+price_units = rub/unit
+table.id = ID
+table.name = Name
+table.quantity = Quantity
+table.unit_price = Unit Price
+\end{minted}
+
+\anonsection{Исходный код ресурсов (русский язык)}
+
+\begin{minted}[fontsize=\footnotesize]{java}
+head.title = Список лекарств
+body.title = Список лекарств дешевле
+price_units = руб/шт
+table.id = Идентификатор
+table.name = Имя
+table.quantity = Количество
+table.unit_price = Цена за ед
+\end{minted}
+
+\end{document}
+
