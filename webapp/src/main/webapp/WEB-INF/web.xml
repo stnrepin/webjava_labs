@@ -5,12 +5,12 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>BooksList</servlet-name>
-    <display-name>BooksList</display-name>
+    <servlet-name>MedicineList</servlet-name>
+    <display-name>MedicineList</display-name>
     <servlet-class>app.servlet.MedicineList</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>BooksList</servlet-name>
-    <url-pattern>/BooksList</url-pattern>
+    <servlet-name>MedicineList</servlet-name>
+    <url-pattern>/MedicineList</url-pattern>
   </servlet-mapping>
 </web-app>
