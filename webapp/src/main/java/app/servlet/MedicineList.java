@@ -1,8 +1,11 @@
 package app.servlet;
 
+import models.Medicine;
+
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import services.MedicineService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,64 +15,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Лекарство в аптеке.
- */
-class Medicine {
-    public int id;
-    public String name;
-    public int quantity;
-    public int unitPrice;
-
-    /**
-     * Конкструктор.
-     * @param id ID
-     * @param name Имя
-     * @param quantity Количество на складе
-     * @param unitPrice Цена единицы
-     */
-    public Medicine(int id, String name, int quantity, int unitPrice) {
-        this.id = id;
-        this.name = name;
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
-    }
-
-    /**
-     * Возвращает список строковых значений полей класса.
-     * @return Список строк
-     */
-    public List<String> fieldsToStringList() {
-        return List.of(
-            String.valueOf(this.id),
-            this.name,
-            String.valueOf(this.quantity),
-            String.valueOf(this.unitPrice)
-        );
-    }
-}
-
-/**
  * Сервлет, отображающий список лекарсв.
  */
-@WebServlet(name = "MedicineList", value = "/MedicineList")
+//@WebServlet(name = "MedicineList", value = "/MedicineList")
 public class MedicineList extends HttpServlet {
-    /**
-     * Список лекарств.
-     */
-    private final List<Medicine> medicines;
-
-    /**
-     * Конкструктор.
-     */
-    public MedicineList() {
-        super();
-        medicines = new ArrayList<>();
-        medicines.add(new Medicine(0, "AAA", 10, 100));
-        medicines.add(new Medicine(1, "BBB", 32, 200));
-        medicines.add(new Medicine(2, "CCC", 1, 220));
-        medicines.add(new Medicine(3, "DDD", 56, 1340));
-        medicines.add(new Medicine(4, "EEE", 23, 50));
-    }
+    private final MedicineService medicineService = new MedicineService();
 
     /**
      * Выполняет GET и POST HTTP-запросы.
@@ -142,15 +92,12 @@ public class MedicineList extends HttpServlet {
     /**
      * Создает содержимое таблицы для всех лекарств, стоимость единицы
      * которых меньше, чем `max_price`.
-     * @param max_price Максимальная цена (не включая)
+     * @param maxPrice Максимальная цена (не включая)
      * @return HTML-содержимое таблицы
      */
-    private String buildTableHtml(int max_price) {
+    private String buildTableHtml(int maxPrice) {
         StringBuilder sb = new StringBuilder();
-        for (var med : this.medicines) {
-            if (med.unitPrice >= max_price) {
-                continue;
-            }
+        for (var med : this.medicineService.findByMaxPrice(maxPrice)) {
             sb.append("<tr>");
             for (String field : med.fieldsToStringList()) {
                 sb.append("<td>");

@@ -1,0 +1,148 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{rotating}
+\usepackage{verbatim}
+\input{inc/preamble.tex}
+
+\usepackage[outputdir=out,cache=false]{minted}
+
+\begin{document}
+
+\input{inc/titlepage}
+
+\renewcommand*{\thepage}{}
+\tableofcontents
+\clearpage
+\renewcommand*{\thepage}{\arabic{page}}
+
+\setcounter{page}{3}
+
+\section{Цель работы}
+
+Знакомство с технологией построения Web-приложений
+на основе JSP.
+
+\section{Выполнение работы}
+
+С помощью технологии JSP разработана программа, аналогичная такой из
+лабораторной работы № 3.
+
+В качестве предметной области взята тема из курсового проекта по
+объектно-ориентированному программированию на языке Java: разработка средства
+управления аптеков. Разработана JSP-страница, отображающий список лекарств в аптеке
+(ID, имя, количество единиц, цена единицы) и способный фильтровать лекарства по
+максимальной цене.
+
+Проект содержит три JSP-страницы:
+\begin{itemize}
+    \item форма ввода критерия фильтрации -- максимальной цены
+    (MedicineRequest.jsp);
+    \item страница, отображающая результат фильтрации (MedicineList.jsp);
+    \item страница, отображаемая при ошибке (ErrorManager.jsp).
+\end{itemize}
+
+\addimghere{res/1.png}{1}{Ввод критерия фильтрации}{}
+\addimghere{res/2.png}{1}{Отображение фильтрованного списка}{}
+\addimghere{res/3.png}{1}{Отображение ошибки, при неправильных параметрах
+запроса}{}
+\addimghere{res/4.png}{1}{Пример документации, сгенерированной JavaDoc}{}
+
+\section{Вывод}
+
+В ходе выполнения лабораторной работы были получены практические навыки
+разработки веб-приложений с применением JSP-страниц.
+
+\anonsection{Исходный код MedicineRequest.jsp}
+
+\begin{minted}[fontsize=\footnotesize]{java}
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Create a request for medicines</title>
+</head>
+<body>
+    <form action="MedicineList.jsp">
+        <label for="max-price">Minimal price:</label><br>
+        <input type="number" id="max-price" name="max-price"
+            autocomplete="off" min="0" value="0">
+    </form>
+</body>
+</html>
+\end{minted}
+
+\anonsection{Исходный код MedicineList.jsp}
+
+\begin{minted}[fontsize=\footnotesize]{java}
+<%@ page import="services.MedicineService" %>
+<%@ page import="models.Medicine" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<html>
+<head>
+    <title>Medicine List</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <%! static final MedicineService medicineService =
+        new MedicineService();
+    %>
+
+    <%
+        request.setCharacterEncoding("UTF-8");
+        String maxPriceStr = request.getParameter("max-price");
+        RequestDispatcher dispatcher;
+        if (maxPriceStr == null) {
+            dispatcher = request.getServletContext()
+                            .getRequestDispatcher("/ErrorManager.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+        int maxPrice = Integer.parseInt(maxPriceStr);
+    %>
+
+    <h1>List of medicines cheaper than <%=maxPrice%> rub/unit</h1>
+    <table>
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Name</b></td>
+            <td><b>Quantity</b></td>
+            <td><b>Unit Price</b></td>
+        </tr>
+        <% for (Medicine med :
+                medicineService.findByMaxPrice(maxPrice)) {%>
+            <tr>
+                <% for (String field : med.fieldsToStringList()) { %>
+                    <td><%=field%></td>
+                <% } %>
+            </tr>
+        <% } %>
+    </table>
+</body>
+</html>
+
+\end{minted}
+
+\anonsection{Исходный код ErrorManager.jsp}
+
+\begin{minted}[fontsize=\footnotesize]{java}
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Error</title>
+</head>
+<body>
+    <h3>Error</h3>
+    <p>
+        You should enter a minimal price after URL in the format
+        "?max-price=(Number)"
+    </p>
+</body>
+</html>
+\end{minted}
+
+\end{document}
+
