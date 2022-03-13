@@ -2,8 +2,8 @@
 \contentsline {section}{\numberline {1}Цель работы}{3}{section.1}%
 \contentsline {section}{\numberline {2}Выполнение работы}{3}{section.2}%
 \contentsline {section}{\numberline {3}Вывод}{5}{section.3}%
-\contentsline {paragraph}{\xpg@select@fontfamily {russian}\fontseries {m}\selectfont \fontshape {n}\selectfont \bfseries \centerline {{Исходный код MedicineRequest.jsp}}}{6}{paragraph*.6}%
-\contentsline {section}{Исходный код MedicineRequest.jsp}{6}{paragraph*.6}%
+\contentsline {paragraph}{\xpg@select@fontfamily {russian}\fontseries {m}\selectfont \fontshape {n}\selectfont \bfseries \centerline {{Исходный код MedicineFilter.jsp}}}{6}{paragraph*.6}%
+\contentsline {section}{Исходный код MedicineFilter.jsp}{6}{paragraph*.6}%
 \contentsline {paragraph}{\xpg@select@fontfamily {russian}\fontseries {m}\selectfont \fontshape {n}\selectfont \bfseries \centerline {{Исходный код MedicineList.jsp}}}{6}{paragraph*.8}%
 \contentsline {section}{Исходный код MedicineList.jsp}{6}{paragraph*.8}%
 \contentsline {paragraph}{\xpg@select@fontfamily {russian}\fontseries {m}\selectfont \fontshape {n}\selectfont \bfseries \centerline {{Исходный код ErrorManager.jsp}}}{7}{paragraph*.10}%

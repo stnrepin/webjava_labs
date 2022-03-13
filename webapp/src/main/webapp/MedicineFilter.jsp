@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create a request for medicines</title>
+    <title>Create a filter for medicines</title>
 </head>
 <body>
     <form action="MedicineList.jsp">

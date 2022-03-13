@@ -5,6 +5,6 @@
 <web-app>
   <display-name>Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>/MedicineRequest.jsp</welcome-file>
+    <welcome-file>/MedicineFilter.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
