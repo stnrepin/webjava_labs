@@ -1,0 +1,166 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{rotating}
+\usepackage{verbatim}
+\input{inc/preamble.tex}
+
+\usepackage[outputdir=out,cache=false]{minted}
+
+\begin{document}
+
+\input{inc/titlepage}
+
+\renewcommand*{\thepage}{}
+\tableofcontents
+\clearpage
+\renewcommand*{\thepage}{\arabic{page}}
+
+\setcounter{page}{3}
+
+\section{Цель работы}
+
+Знакомство со способами реализации аутентификации и
+авторизации пользователей Web-приложения.
+
+\section{Выполнение работы}
+
+В проект, созданный лабораторной работе № 5, была добавлена аутентентификация и
+авторизация. Для этого в tomcat по средствам редактирования файла
+tomcat-users.xml были добавлены роли admin и manager, а также пользователь
+admin/admin. Затем информация о существовании такого пользователя была
+добавлена в файл web.xml. В том же файле указаны страница, к которой надо
+применить правила аутентификации, и метод аутентификации.
+
+Кроме того, сервер был настроен для работы через HTTPS (по порту 8443). Для
+этого был сгенерирован соответствующий сертификат, который затем был прописан в
+специальном Connector в файле server.xml.
+
+\addimghere{res/1.png}{1}{Процесс генерации сертификата}{}
+\addimghere{res/2.png}{1}{Подключение по HTTP с окном авторизации}{}
+\addimghere{res/2_1.png}{1}{Результат успешной авторизации -- переход к
+странице MedicineFilter.jsp}{}
+\addimghere{res/3.png}{1}{Загрузка страницы по HTTPS}{}
+
+\section{Вывод}
+
+В ходе выполнения лабораторной работы были получены практические навыки
+разработки WEB-приложений с поддержкой аутентификации и авторизации. Кроме
+того, были получены знания о генерации сертификатов и подключении HTTPS.
+
+\anonsection{Исходный код tomcat-users.xml}
+
+\begin{minted}[fontsize=\footnotesize]{xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<tomcat-users xmlns="http://tomcat.apache.org/xml"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+  version="1.0">
+  <role rolename="manager "/>
+  <role rolename="admin "/>
+  <user username="admin" password="admin" roles="manager, admin" />
+</tomcat-users>
+\end{minted}
+
+\anonsection{Исходный код server.xml}
+
+\begin{minted}[fontsize=\footnotesize]{xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener
+    className="org.apache.catalina.startup.VersionLoggerListener" />
+  <Listener
+    className="org.apache.catalina.core.AprLifecycleListener"
+    SSLEngine="on" />
+  <Listener
+    className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener
+    className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener
+    className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <GlobalNamingResources>
+    <Resource name="UserDatabase" auth="Container"
+        type="org.apache.catalina.UserDatabase"
+        description="User database that can be updated and saved"
+        factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+        pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <Service name="Catalina">
+
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+           useBodyEncodingForURI="true"/>
+    <Connector port="8443"
+        protocol="org.apache.coyote.http11.Http11NioProtocol"
+        SSLEnabled="true"
+        maxThreads="150" scheme="https" secure="true"
+        clientAuth="false" sslProtocol="TLS"
+        useBodyEncodingForURI="true">
+      <SSLHostConfig>
+    <Certificate
+          certificateKeystoreFile="/usr/share/tomcat.keystore"
+          certificateKeystorePassword="111111"
+          type="RSA"/>
+      </SSLHostConfig>
+    </Connector>
+
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+
+        <Valve className="org.apache.catalina.valves.AccessLogValve"
+               directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+      </Host>
+    </Engine>
+  </Service>
+</Server>
+\end{minted}
+
+\anonsection{Исходный код web.xml}
+
+\begin{minted}[fontsize=\footnotesize]{xml}
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Web Application</display-name>
+  <welcome-file-list>
+    <welcome-file>/MedicineFilter.jsp</welcome-file>
+  </welcome-file-list>
+
+  <security-role>
+    <role-name>admin</role-name>
+  </security-role>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>
+        Medicine List Filter
+      </web-resource-name>
+      <url-pattern>/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Filter Medicine List</realm-name>
+  </login-config>
+</web-app>
+\end{minted}
+
+\end{document}
+
