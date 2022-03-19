@@ -1,0 +1,253 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{rotating}
+\usepackage{verbatim}
+\input{inc/preamble.tex}
+
+\usepackage[outputdir=out,cache=false]{minted}
+
+\begin{document}
+
+\input{inc/titlepage}
+
+\renewcommand*{\thepage}{}
+\tableofcontents
+\clearpage
+\renewcommand*{\thepage}{\arabic{page}}
+
+\setcounter{page}{3}
+
+\section{Цель работы}
+
+Знакомство с методами передачи информации между соединениями, открываемыми в
+рамках одного сеанса работы пользователя
+
+\section{Выполнение работы}
+
+В проект добавлена страницы Login.jsp, которая содержит форму для ввода имени
+пользователя и цвета. Эта страница передает GET-запросом данные в сервлет
+LoginProcessor, который создает нужные cookie и переменные HTTP-сессии (имя
+пользователя, цвет пользователя, число обращений к странице и дату последнего
+обращения). Затем сервлет переадресует запрос на страницу Welcome.jsp, которая
+читает созданные переменные и отображает соответствующий текст пользователю.
+
+\addimghere{res/1_1.png}{1}{Ввод данных на страницу Login.jsp}{}
+\addimghere{res/1_2.png}{1}{Результат на странице Welcome.jsp}{}
+\addimghere{res/1_3.png}{1}{Получившиеся в итоге cookie}{}
+
+\addimghere{res/2_1.png}{1}{Ввод данных на страницу Login.jsp}{}
+\addimghere{res/2_2.png}{1}{Результат на странице Welcome.jsp}{}
+\addimghere{res/2_3.png}{1}{Получившиеся в итоге cookie}{}
+
+\addimghere{res/3_1.png}{1}{Ввод данных на страницу Login.jsp}{}
+\addimghere{res/3_2.png}{1}{Результат на странице Welcome.jsp}{}
+\addimghere{res/3_3.png}{1}{Получившиеся в итоге cookie}{}
+
+\section{Вывод}
+
+В ходе выполнения лабораторной работы были получены практические навыки
+использования cookie и переменных HTTP-сессии в web-приложения на языке Java.
+\anonsection{Исходный код Login.jsp}
+
+\begin{minted}[fontsize=\footnotesize]{jsp}
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <form action="LoginProcessor">
+        <label for="username">Username:</label>
+        <br>
+        <input id="username" name="userName" autocomplete="off" />
+        <br>
+        <label for="color">Your color: </label>
+        <br>
+        <input id="color" name="userColor" autocomplete="off" />
+        <br><br>
+        <input type="submit" value="Login" />
+    </form>
+</body>
+</html>
+\end{minted}
+
+\anonsection{Исходный код LoginProcessor.java}
+
+\begin{minted}[fontsize=\footnotesize]{java}
+package app.servlet;
+
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
+import java.util.Optional;
+
+/**
+ * Сервлет, обрабатывающий попытку входа пользователя.
+ */
+@WebServlet(name = "LoginProcessor", value = "/LoginProcessor")
+public class LoginProcessor extends HttpServlet {
+    /**
+     * Обрабатывает GET-запрос.
+     * @param request Объект запроса
+     * @param response Объект ответа
+     * @throws IOException Ошибка ввода/вывода
+     */
+    @Override
+    protected void doGet(HttpServletRequest request,
+        HttpServletResponse response)
+            throws IOException {
+        // Получаем HTTP-сессию.
+        var session = request.getSession(true);
+
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+
+        // Читаем параметры, переданные из формы.
+        var userName = readParameter(request, response, "userName");
+        var userColor = readParameter(request, response, "userColor");
+
+        if (userName == null || userColor == null) {
+            return;
+        }
+
+        // Создаем куки с именем пользователя и его цветом.
+        createCookie(response, "user.name", userName);
+        createCookie(response, "user.color", userColor);
+        // Обновляем переменные сессии:
+        //     - Инкрементируем число посещений.
+        //     - Обновляем дату последнего входа.
+        updateOrCreateSessionAttribute(session,
+                                       "page.welcome.accessedCount",
+                x -> x.map(y -> ((Integer)y) + 1).orElse(1));
+        updateOrCreateSessionAttribute(session,
+                                       "page.welcome.accessedDate",
+                x -> Instant.now());
+
+        // Производим редирект на целевую страницу.
+        var redirectPage = request.getContextPath() + "/Welcome.jsp";
+        response.sendRedirect(response.encodeRedirectURL(redirectPage));
+    }
+
+    /**
+     * Создает новое куки.
+     * @param response Объект ответа.
+     * @param name Имя куки.
+     * @param value Значение куки.
+     */
+    private void createCookie(HttpServletResponse response,
+                              String name, String value) {
+        var c = new Cookie(name, URLEncoder.encode(value,
+                                        StandardCharsets.UTF_8));
+        c.setMaxAge(60 * 60 * 24);
+        response.addCookie(c);
+    }
+
+    /**
+     * Представляет метод, обновляющий значение переменной HTTP-сессии.
+     */
+    interface HttpSessionAttributeUpdater {
+        Object update(Optional<Object> oldValue);
+    }
+
+    /**
+     * Обновляет переменную HTTP-сессии.
+     * @param session Объект сессии.
+     * @param name Имя переменной.
+     * @param updater Объект-обновитель.
+     */
+    private void updateOrCreateSessionAttribute(HttpSession session,
+            String name, HttpSessionAttributeUpdater updater) {
+        var oldValue = session.getAttribute(name);
+        var newValue = updater.update(Optional.ofNullable(oldValue));
+        session.setAttribute(name, newValue);
+    }
+
+    /**
+     * Читает параметр GET-запроса.
+     *
+     * При отсутствии параметра устанавливает HTTP-код и сообщение.
+     * При отсутствии параметра устанавливает HTTP-код и сообщение.
+     *
+     * @param request Объект запроса.
+     * @param response Объект ответа.
+     * @param name Имя параметра.
+     * @return Значение параметра.
+     * @throws IOException Ошибка ввода/вывода.
+     */
+    private String readParameter(HttpServletRequest request,
+                HttpServletResponse response, String name)
+                    throws IOException {
+        var parameter = request.getParameter(name);
+        if(parameter == null) {
+            var error = "Parameter \"" + name + "\" is not set";
+            response
+                .sendError(HttpServletResponse.SC_BAD_REQUEST, error);
+        }
+        return parameter;
+    }
+}
+\end{minted}
+
+\anonsection{Исходный код Welcome.jsp}
+
+\begin{minted}[fontsize=\footnotesize]{jsp}
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.time.Instant" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%!
+  /**
+   * Ищет куки по имени и возвращает его значение.
+   * @param request Объект запроса.
+   * @param name имя куки.
+   * @return Значение куки, если оно найдено.
+   */
+  Optional<String> findCookieValue(HttpServletRequest request,
+        String name) {
+    return Arrays.stream(
+      request.getCookies())
+            .filter(x -> x.getName().equals(name))
+            .findFirst()
+            .map(Cookie::getValue);
+  }
+%>
+<%
+  // Находит значения переменных, сохраненные в куки.
+  String userName = findCookieValue(request, "user.name")
+                        .orElse("Anon");
+  String userColor = findCookieValue(request, "user.color")
+                        .orElse("black");
+  // Находит значения переменных, сохраненные в сессии.
+  Integer accessedCount =
+        (Integer)session.getAttribute("page.welcome.accessedCount");
+  Instant accessedDate =
+        (Instant)session.getAttribute("page.welcome.accessedDate");
+%>
+
+<html>
+<head>
+  <title>Title</title>
+  <style>
+    em {
+      color: <%=userColor%>;
+    }
+  </style>
+</head>
+<body>
+<h3>
+  Hello, <em><%=userName%></em>!
+</h3>
+<br>
+<h3>
+  This page has been visited <em><%=accessedCount%></em> time(s).
+  Last on <em><%=accessedDate%></em>
+</h3>
+</body>
+</html>
+\end{minted}
+
+\end{document}
+

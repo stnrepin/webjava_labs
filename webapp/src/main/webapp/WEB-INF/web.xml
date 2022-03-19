@@ -5,7 +5,7 @@
 <web-app>
   <display-name>Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>/MedicineFilter.jsp</welcome-file>
+    <welcome-file>/Login.jsp</welcome-file>
   </welcome-file-list>
 
   <security-role>
@@ -15,7 +15,7 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Medicine List Filter</web-resource-name>
-      <url-pattern>/*</url-pattern>
+      <url-pattern>/MedicineFilter</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
     </web-resource-collection>

@@ -10,8 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f05566b-8450-4fce-a175-83a6aa1d96e3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/servlet/LoginProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/Login.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/Welcome.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../reports/lab2/report/out/main.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../reports/lab3/report/out/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/../reports/lab3/report/out/main.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reports/lab5/report/inc/titlepage.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../reports/lab5/report/inc/titlepage.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reports/lab5/report/out/8307_Репин_5.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../reports/lab5/report/out/8307_Репин_5.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reports/lab5/report/out/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/../reports/lab5/report/out/main.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
@@ -24,9 +30,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="jsf" />
-        <option value="Class" />
-        <option value="Jsp File" />
         <option value="HTML File" />
+        <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -252,7 +258,10 @@
       <workItem from="1647111342804" duration="2835000" />
       <workItem from="1647168885042" duration="1310000" />
       <workItem from="1647205218039" duration="3533000" />
-      <workItem from="1647513781419" duration="1770000" />
+      <workItem from="1647513781419" duration="2369000" />
+      <workItem from="1647535095286" duration="2816000" />
+      <workItem from="1647697772153" duration="1360000" />
+      <workItem from="1647703270544" duration="3297000" />
     </task>
     <servers />
   </component>
