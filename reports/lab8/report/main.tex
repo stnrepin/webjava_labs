@@ -1,0 +1,97 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{rotating}
+\usepackage{verbatim}
+\input{inc/preamble.tex}
+
+\usepackage[outputdir=out,cache=false]{minted}
+
+\begin{document}
+
+\input{inc/titlepage}
+
+\renewcommand*{\thepage}{}
+\tableofcontents
+\clearpage
+\renewcommand*{\thepage}{\arabic{page}}
+
+\setcounter{page}{3}
+
+\section{Цель работы}
+
+Знакомство с процессом создания GWT-приложения в среде Eclipce и Maven.
+
+\section{Выполнение работы}
+
+Был разработан проект, по функциональности аналогичный такому из лабораторной
+работы №3: пользователь вводит число -- максимальную цену за штуку -- и ему
+выводится список лекарств в аптеке с учетом данного фильтра. Приложение
+работает на основе фреймворка GWT.
+
+Проект разделен на три части: клиентская сторона, серверная сторона и общий
+код. На клиентской сторону описывает HTML-страница, представляющаяся
+пользователю, интерфейс RPC-сервис, описывающий серверную часть приложения и
+модуль, контролирующий пользовательский интерфейс и соединяющий его с серверной
+частью. На серверной части реалзиуется RPC-сервис, передающий некоторые данные
+(список лекарств, удовлетворяющий критерию фильтра) клиентской части. В общей
+части расположен код валидации вводимых данных и DTO-класс лекартства.
+
+\addimghere{res/1.png}{0.6}{Фильтрация по максимальной цене равной 200}{}
+\addimghere{res/2.png}{0.6}{Фильтрация по максимальной цене равной 9000}{}
+\addimghere{res/3.png}{0.6}{Ошибка при вводе некорректных данных}{}
+\addimghere{res/4.png}{0.6}{Ошибка при недоступности сервера}{}
+\addimghere{res/5.png}{1}{Содержание документации, сгенерированной Javadoc}{}
+
+\section{Вывод}
+
+В ходе выполнения лабораторной работы были получены практические навыки
+работы с фреймворком WEB-приложений GWT. Получены теоретические знания о
+принципах его работы.
+
+\anonsection{Исходный код MedicineModule.gwt.xml}
+
+\begin{minted}[fontsize=\footnotesize]{xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="MedicineModule">
+  <inherits name="com.google.gwt.user.User" />
+
+  <inherits name="com.google.gwt.user.theme.standard.Standard" />
+
+  <entry-point class="etu.client.MedicineModule" />
+
+  <source path="client" />
+  <source path="shared" />
+</module>
+\end{minted}
+
+\anonsection{Исходный код web.xml}
+
+\begin{minted}[fontsize=\footnotesize]{xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>etu.server.FilterMedicineServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/MedicineModule/filterMedicine</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>MedicineModule.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize]{xml}
+\end{minted}
+
+\end{document}
+

@@ -1,0 +1,9 @@
+\selectlanguage *{russian}
+\contentsline {section}{\numberline {1}Цель работы}{3}{section.1}%
+\contentsline {section}{\numberline {2}Выполнение работы}{3}{section.2}%
+\contentsline {section}{\numberline {3}Вывод}{5}{section.3}%
+\contentsline {paragraph}{\xpg@select@fontfamily {russian}\fontseries {m}\selectfont \fontshape {n}\selectfont \bfseries \centerline {{Исходный код MedicineModule.gwt.xml}}}{6}{paragraph*.7}%
+\contentsline {section}{Исходный код MedicineModule.gwt.xml}{6}{paragraph*.7}%
+\contentsline {paragraph}{\xpg@select@fontfamily {russian}\fontseries {m}\selectfont \fontshape {n}\selectfont \bfseries \centerline {{Исходный код web.xml}}}{6}{paragraph*.9}%
+\contentsline {section}{Исходный код web.xml}{6}{paragraph*.9}%
+\contentsfinish 
